@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.gracielo.probis2.databinding.ActivityMainBinding;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
 
