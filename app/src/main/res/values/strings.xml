@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Probis2</string>
+    <string name="url">http://192.168.0.107/API_Probis/myservice/master.php</string>
+    <!--device asli: device dan laptop 1 network (pakai ip laptop)
+        kalo ga pake wifi : device harus jadi hotspot lalu laptop connect ke device
+        memu:iplaptop
+        emulator:10.0.2.2
+        genymotion:10.0.3.2
+    -->
 </resources>

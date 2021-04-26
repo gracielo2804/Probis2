@@ -6,4 +6,188 @@
     android:layout_height="match_parent"
     tools:context=".RegisterActivity">
 
+    <TextView
+        android:id="@+id/txtNamaReg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Nama : "
+        android:textColor="#000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etNamaReg"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:textSize="15sp"
+        android:layout_marginStart="16dp"
+        android:ems="15"
+        android:hint="Nama Anda"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtNamaReg" />
+
+    <TextView
+        android:id="@+id/txtAlamatReg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Alamat : "
+        android:textColor="#000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etNamaReg" />
+
+    <EditText
+        android:id="@+id/etAlamatReg"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:textSize="15sp"
+        android:layout_marginStart="16dp"
+        android:ems="15"
+        android:hint="Alamat Anda"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtAlamatReg" />
+
+    <TextView
+        android:id="@+id/txtNomorReg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Nomor Telepon : "
+        android:textColor="#000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etAlamatReg" />
+
+    <EditText
+        android:id="@+id/etNomorReg"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:textSize="15sp"
+        android:layout_marginStart="16dp"
+        android:ems="15"
+        android:hint="ex: 081234123412"
+        android:inputType="number"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtNomorReg" />
+
+    <TextView
+        android:id="@+id/txtEmailReg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Email : "
+        android:textColor="#000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etNomorReg" />
+
+    <EditText
+        android:id="@+id/etEmailReg"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:textSize="15sp"
+        android:layout_marginStart="16dp"
+        android:ems="15"
+        android:hint="ex: pasar@gmail.com"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtEmailReg" />
+
+    <TextView
+        android:id="@+id/txtPassReg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Password : "
+        android:textColor="#000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etEmailReg" />
+
+    <EditText
+        android:id="@+id/etPassReg"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:textSize="15sp"
+        android:layout_marginStart="16dp"
+        android:ems="15"
+        android:hint="Password Anda"
+        android:inputType="textPassword"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtPassReg" />
+
+    <TextView
+        android:id="@+id/txtConPassReg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Konfirmasi Password : "
+        android:textColor="#000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etPassReg" />
+
+    <EditText
+        android:id="@+id/etConPassReg"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:textSize="15sp"
+        android:layout_marginStart="16dp"
+        android:ems="15"
+        android:hint="Ketik Ulang Password Anda"
+        android:inputType="textPassword"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtConPassReg" />
+
+    <TextView
+        android:id="@+id/txtJKReg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Jenis Kelamin : "
+        android:textColor="#000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etConPassReg" />
+
+    <RadioGroup
+        android:id="@+id/rg_JK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtJKReg">
+
+        <RadioButton
+            android:id="@+id/rb_Laki"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Laki - Laki" />
+
+        <RadioButton
+            android:id="@+id/radioButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Perempuan" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="359dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:text="Register"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rg_JK" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
