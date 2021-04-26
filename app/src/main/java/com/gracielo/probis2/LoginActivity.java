@@ -35,14 +35,18 @@ public class LoginActivity extends AppCompatActivity {
         binding.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (binding.etNoTelpLogin.getText().toString().trim().equalsIgnoreCase("")) {
-                    binding.etNoTelpLogin.setError("Field ini Harus diisi");
-                    binding.etNoTelpLogin.requestFocus();
+                boolean status=true;
+                if (binding.etEmailLogin.getText().toString().trim().equalsIgnoreCase("")) {
+                    binding.etEmailLogin.setError("Field ini Harus diisi");
+                    binding.etEmailLogin.requestFocus();
+                    status=false;
                 }
                 if (binding.etPassLogin.getText().toString().isEmpty()) {
                     binding.etPassLogin.setError("Field ini Harus diisi");
                     binding.etPassLogin.requestFocus();
+                    status=false;
                 }
+                if(status)LoginProcess();
             }
         });
         binding.btnToRegister.setOnClickListener(new View.OnClickListener() {
@@ -55,50 +59,54 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-//    public void LoginProcess(){
-//        StringRequest stringRequest=new StringRequest(
-//                Request.Method.POST,//tipe method pada web service
-//                getResources().getString(R.string.url),//url yang diakses
-//                //untuk handle respon
-//                new Response.Listener<String>() {
-//                    @Override
-//                    public void onResponse(String response) {
-//                        System.out.println(response);
-//                        try {
-//                            JSONObject jsonObject=new JSONObject(response);
-//                            int code=jsonObject.getInt("code");
-//                            String message=jsonObject.getString("message");
-//                            if(code==1){
+    public void LoginProcess(){
+        StringRequest stringRequest=new StringRequest(
+                Request.Method.POST,//tipe method pada web service
+                getResources().getString(R.string.url),//url yang diakses
+                //untuk handle respon
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        System.out.println(response);
+                        try {
+                            JSONObject jsonObject=new JSONObject(response);
+                            int code=jsonObject.getInt("code");
+                            String message=jsonObject.getString("message");
+                            if(code==1){
+                                Toast.makeText(LoginActivity.this, "Berhasil Login", Toast.LENGTH_SHORT).show();
 //                                Intent mainIntent=new Intent(LoginActivity.this,MainActivity.class);
 //                                startActivity(mainIntent);
-//                                finish();
-//                            }
-//                            Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                },
-//                //untuk handle error
-//                new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//
-//                    }
-//                }
-//        ){
-//            //untuk mengatur parameter yang idkirim ke web sevice
-//
-//            @Override
-//            protected Map<String, String> getParams() throws AuthFailureError {
-//                Map <String,String>params=new HashMap();
-//                params.put("function","login");
-//                params.put("username",etusername.getText().toString());
-//                params.put("password",etpassword.getText().toString());
-//                return params;
-//            }
-//        };
-//        RequestQueue requestQueue= Volley.newRequestQueue(this);
-//        requestQueue.add(stringRequest);
-//    }
+
+                            }
+                            else{
+                                Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                //untuk handle error
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }
+        ){
+            //untuk mengatur parameter yang idkirim ke web sevice
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map <String,String>params=new HashMap();
+                params.put("function","login");
+                params.put("email",binding.etEmailLogin.getText().toString());
+                params.put("password",binding.etPassLogin.getText().toString());
+                return params;
+            }
+        };
+        RequestQueue requestQueue= Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
 }

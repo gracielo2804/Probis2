@@ -7,11 +7,11 @@
     tools:context=".LoginActivity">
 
     <EditText
-        android:id="@+id/etNoTelpLogin"
+        android:id="@+id/etEmailLogin"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Nomor Telepon"
+        android:hint="Email"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,7 +29,7 @@
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etNoTelpLogin" />
+        app:layout_constraintTop_toBottomOf="@+id/etEmailLogin" />
 
     <Button
         android:id="@+id/btnLogin"
