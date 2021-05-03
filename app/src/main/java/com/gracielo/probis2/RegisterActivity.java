@@ -20,9 +20,11 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,11 +34,13 @@ import cz.msebera.android.httpclient.entity.StringEntity;
 public class RegisterActivity extends AppCompatActivity {
 
     ActivityRegisterBinding binding;
+    ArrayList<Users> listUser=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding=ActivityRegisterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        getAllUser();
         binding.btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,18 +81,27 @@ public class RegisterActivity extends AppCompatActivity {
                     status=false;
                 }
                 if(status){
-                    String jk="";
-                    int selectedrb=binding.rgJK.getCheckedRadioButtonId();
-                    RadioButton rbselected=findViewById(selectedrb);
-                    jk=rbselected.getText().toString();
-                    Users u =new Users(binding.etNamaReg.getText().toString(),
-                            binding.etAlamatReg.getText().toString(),
-                            jk,
-                            binding.etNomorReg.getText().toString(),
-                            binding.etEmailReg.getText().toString(),
-                            binding.etPassReg.getText().toString());
-                    AddUserProcess(u);
-//                    AddUser(u);
+                    boolean cekkembar=true;
+                    for(int i=0;i<listUser.size();i++){
+                        if(binding.etEmailReg.getText().toString().trim().equals(listUser.get(i).email)){
+                            binding.etEmailReg.setError("Email Sudah Digunakan !");
+                            binding.etEmailReg.requestFocus();
+                            cekkembar=false;
+                        }
+                    }
+                    if(cekkembar){
+                        String jk="";
+                        int selectedrb=binding.rgJK.getCheckedRadioButtonId();
+                        RadioButton rbselected=findViewById(selectedrb);
+                        jk=rbselected.getText().toString();
+                        Users u =new Users(binding.etNamaReg.getText().toString(),
+                                binding.etAlamatReg.getText().toString(),
+                                jk,
+                                binding.etNomorReg.getText().toString(),
+                                binding.etEmailReg.getText().toString(),
+                                binding.etPassReg.getText().toString());
+                        AddUserProcess(u);
+                    }
                 }
             }
         });
@@ -143,4 +156,63 @@ public class RegisterActivity extends AppCompatActivity {
         RequestQueue requestQueue= Volley.newRequestQueue(activity);
         requestQueue.add(stringRequest);
     }
+
+    void getAllUser(){
+        listUser=new ArrayList<Users>();
+        StringRequest stringRequest=new StringRequest(
+                Request.Method.POST,//tipe method pada web service
+                getResources().getString(R.string.url),//url yang diakses
+                //untuk handle respon
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.e ( "response", "" + response );
+                        System.out.println(response);
+                        try {
+                            JSONObject jsonObject=new JSONObject(response);
+                            int code=jsonObject.getInt("code");
+                            JSONArray datamhs=jsonObject.getJSONArray("datauser");
+                            if(code==1){
+
+                                for (int i=0;i<datamhs.length();i++){
+                                    JSONObject userobj=datamhs.getJSONObject(i);
+                                    Users u=new Users(
+                                           userobj.getString("nama"),
+                                           userobj.getString("alamat"),
+                                            userobj.getString("jk"),
+                                            userobj.getString("nomor"),
+                                            userobj.getString("email"),
+                                            userobj.getString("password")
+                                    );
+                                    listUser.add(u);
+                                }
+                            }
+//                            Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                //untuk handle error
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }
+        ){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map <String,String>params=new HashMap();
+                params.put("function","getalluser");
+                return params;
+            }
+        };
+        RequestQueue requestQueue= Volley.newRequestQueue(activity);
+        requestQueue.add(stringRequest);
+    }
+
+
+
+
 }
