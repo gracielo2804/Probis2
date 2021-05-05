@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Probis2</string>
     <string name="url">http://192.168.0.107/API_Probis/myservice/master.php</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <!--device asli: device dan laptop 1 network (pakai ip laptop)
         kalo ga pake wifi : device harus jadi hotspot lalu laptop connect ke device
         memu:iplaptop

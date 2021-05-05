@@ -15,6 +15,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.gracielo.probis2.Transaksi.TransaksiActivity;
 import com.gracielo.probis2.databinding.ActivityLoginBinding;
 
 import org.json.JSONException;
@@ -72,10 +73,11 @@ public class LoginActivity extends AppCompatActivity {
                             JSONObject jsonObject=new JSONObject(response);
                             int code=jsonObject.getInt("code");
                             String message=jsonObject.getString("message");
+                            System.out.println(message);
                             if(code==1){
                                 Toast.makeText(LoginActivity.this, "Berhasil Login", Toast.LENGTH_SHORT).show();
-//                                Intent mainIntent=new Intent(LoginActivity.this,MainActivity.class);
-//                                startActivity(mainIntent);
+                                Intent i = new Intent(LoginActivity.this, TransaksiActivity.class);
+                                startActivity(i);
 
                             }
                             else{
