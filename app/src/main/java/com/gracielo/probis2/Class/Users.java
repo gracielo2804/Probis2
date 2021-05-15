@@ -1,4 +1,4 @@
-package com.gracielo.probis2;
+package com.gracielo.probis2.Class;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -11,14 +11,27 @@ public class Users implements Parcelable {
     String nomor;
     String email;
     String password;
+    int role;
 
-    public Users(String nama, String alamat, String jk, String nomor, String email, String password) {
+    public Users(String nama, String alamat, String jk, String nomor, String email, String password, int role) {
         this.nama = nama;
         this.alamat = alamat;
         this.jk = jk;
         this.nomor = nomor;
         this.email = email;
         this.password = password;
+        this.role= role;
+    }
+
+    public int getRole() {
+        return role;
+    }
+    public String getRoleString() {
+        return String.valueOf(role);
+    }
+
+    public void setRole(int role) {
+        this.role = role;
     }
 
     public int getId() {
@@ -77,6 +90,9 @@ public class Users implements Parcelable {
         this.password = password;
     }
 
+    public Users() {
+    }
+
 
     @Override
     public int describeContents() {
@@ -92,6 +108,7 @@ public class Users implements Parcelable {
         dest.writeString(this.nomor);
         dest.writeString(this.email);
         dest.writeString(this.password);
+        dest.writeInt(this.role);
     }
 
     public void readFromParcel(Parcel source) {
@@ -102,9 +119,7 @@ public class Users implements Parcelable {
         this.nomor = source.readString();
         this.email = source.readString();
         this.password = source.readString();
-    }
-
-    public Users() {
+        this.role = source.readInt();
     }
 
     protected Users(Parcel in) {
@@ -115,9 +130,10 @@ public class Users implements Parcelable {
         this.nomor = in.readString();
         this.email = in.readString();
         this.password = in.readString();
+        this.role = in.readInt();
     }
 
-    public static final Parcelable.Creator<Users> CREATOR = new Parcelable.Creator<Users>() {
+    public static final Creator<Users> CREATOR = new Creator<Users>() {
         @Override
         public Users createFromParcel(Parcel source) {
             return new Users(source);

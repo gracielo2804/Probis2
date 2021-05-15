@@ -1,4 +1,4 @@
-package com.gracielo.probis2.Transaksi;
+package com.gracielo.probis2.Pembeli;
 
 import android.os.Bundle;
 
@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.gracielo.probis2.R;
 import com.gracielo.probis2.databinding.FragmentHomeTransBinding;
 
 public class HomeTransFragment extends Fragment {

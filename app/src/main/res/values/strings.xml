@@ -9,4 +9,13 @@
         emulator:10.0.2.2
         genymotion:10.0.3.2
     -->
+    <string-array name="list_kategori">
+        <item>Pilih Kategori</item>
+        <item>Ikan</item>
+        <item>Beras</item>
+        <item>Ayam</item>
+        <item>Daging</item>
+        <item>Sayuran</item>
+        <item>Buah</item>
+    </string-array>
 </resources>

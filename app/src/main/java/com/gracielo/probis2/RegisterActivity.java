@@ -15,10 +15,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.gracielo.probis2.Class.Users;
 import com.gracielo.probis2.databinding.ActivityRegisterBinding;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,9 +25,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.entity.StringEntity;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -83,7 +78,7 @@ public class RegisterActivity extends AppCompatActivity {
                 if(status){
                     boolean cekkembar=true;
                     for(int i=0;i<listUser.size();i++){
-                        if(binding.etEmailReg.getText().toString().trim().equals(listUser.get(i).email)){
+                        if(binding.etEmailReg.getText().toString().trim().equals(listUser.get(i).getEmail())){
                             binding.etEmailReg.setError("Email Sudah Digunakan !");
                             binding.etEmailReg.requestFocus();
                             cekkembar=false;
@@ -94,12 +89,21 @@ public class RegisterActivity extends AppCompatActivity {
                         int selectedrb=binding.rgJK.getCheckedRadioButtonId();
                         RadioButton rbselected=findViewById(selectedrb);
                         jk=rbselected.getText().toString();
+                        int selectedrbRole=binding.rgRole.getCheckedRadioButtonId();
+                        RadioButton rbselectedrole=findViewById(selectedrb);
+                        int role = 1;
+                        role = (rbselectedrole.getText().toString().equals("Pembeli")) ? 1 : 2;
+                        System.out.println(role);
+//                        if(rbselectedrole.getText().toString().equals("Pembeli"))
+//                            role=1;
+
                         Users u =new Users(binding.etNamaReg.getText().toString(),
                                 binding.etAlamatReg.getText().toString(),
                                 jk,
                                 binding.etNomorReg.getText().toString(),
                                 binding.etEmailReg.getText().toString(),
-                                binding.etPassReg.getText().toString());
+                                binding.etPassReg.getText().toString(),
+                                role);
                         AddUserProcess(u);
                     }
                 }
@@ -150,6 +154,7 @@ public class RegisterActivity extends AppCompatActivity {
                 params.put("nomor",user.getNomor());
                 params.put("email",user.getEmail());
                 params.put("password",user.getPassword());
+                params.put("role",user.getRoleString());
                 return params;
             }
         };
@@ -173,7 +178,6 @@ public class RegisterActivity extends AppCompatActivity {
                             int code=jsonObject.getInt("code");
                             JSONArray datamhs=jsonObject.getJSONArray("datauser");
                             if(code==1){
-
                                 for (int i=0;i<datamhs.length();i++){
                                     JSONObject userobj=datamhs.getJSONObject(i);
                                     Users u=new Users(
@@ -182,7 +186,8 @@ public class RegisterActivity extends AppCompatActivity {
                                             userobj.getString("jk"),
                                             userobj.getString("nomor"),
                                             userobj.getString("email"),
-                                            userobj.getString("password")
+                                            userobj.getString("password"),
+                                            userobj.getInt("role")
                                     );
                                     listUser.add(u);
                                 }

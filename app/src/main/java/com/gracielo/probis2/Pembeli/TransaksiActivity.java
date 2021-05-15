@@ -1,4 +1,4 @@
-package com.gracielo.probis2.Transaksi;
+package com.gracielo.probis2.Pembeli;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,7 +9,6 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.gracielo.probis2.R;
-import com.gracielo.probis2.databinding.ActivityLoginBinding;
 import com.gracielo.probis2.databinding.ActivityTransaksiBinding;
 
 public class TransaksiActivity extends AppCompatActivity {

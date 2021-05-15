@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -15,18 +14,18 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.gracielo.probis2.Transaksi.TransaksiActivity;
+import com.gracielo.probis2.Pembeli.TransaksiActivity;
+import com.gracielo.probis2.Penjual.HomePenjualActivity;
 import com.gracielo.probis2.databinding.ActivityLoginBinding;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
     ActivityLoginBinding binding;
+    int UserIDLog=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,14 +36,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 boolean status=true;
-                if (binding.etEmailLogin.getText().toString().trim().equalsIgnoreCase("")) {
-                    binding.etEmailLogin.setError("Field ini Harus diisi");
-                    binding.etEmailLogin.requestFocus();
+                if (binding.etEmailLog.getText().toString().trim().equalsIgnoreCase("")) {
+                    binding.etEmailLog.setError("Field ini Harus diisi");
+                    binding.etEmailLog.requestFocus();
                     status=false;
                 }
-                if (binding.etPassLogin.getText().toString().isEmpty()) {
-                    binding.etPassLogin.setError("Field ini Harus diisi");
-                    binding.etPassLogin.requestFocus();
+                if (binding.etPassLog.getText().toString().isEmpty()) {
+                    binding.etPassLog.setError("Field ini Harus diisi");
+                    binding.etPassLog.requestFocus();
                     status=false;
                 }
                 if(status)LoginProcess();
@@ -74,11 +73,21 @@ public class LoginActivity extends AppCompatActivity {
                             int code=jsonObject.getInt("code");
                             String message=jsonObject.getString("message");
                             System.out.println(message);
-                            if(code==1){
+                            JSONObject userObj = jsonObject.getJSONObject("datauser");
+                            int id= userObj.getInt("id");
+                            System.out.println(id);
+                            if(code==11){
                                 Toast.makeText(LoginActivity.this, "Berhasil Login", Toast.LENGTH_SHORT).show();
                                 Intent i = new Intent(LoginActivity.this, TransaksiActivity.class);
+                                i.putExtra("ID",id);
                                 startActivity(i);
 
+                            }
+                            if(code==12){
+                                Toast.makeText(LoginActivity.this, "Berhasil Login Penjual", Toast.LENGTH_SHORT).show();
+                                Intent i = new Intent(LoginActivity.this, HomePenjualActivity.class);
+                                i.putExtra("ID",id);
+                                startActivity(i);
                             }
                             else{
                                 Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
@@ -103,8 +112,8 @@ public class LoginActivity extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map <String,String>params=new HashMap();
                 params.put("function","login");
-                params.put("email",binding.etEmailLogin.getText().toString());
-                params.put("password",binding.etPassLogin.getText().toString());
+                params.put("email",binding.etEmailLog.getText().toString());
+                params.put("password",binding.etPassLog.getText().toString());
                 return params;
             }
         };
