@@ -2,6 +2,7 @@ package com.gracielo.probis2.Penjual;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ import java.util.Map;
 public class HomePenjualActivity extends AppCompatActivity {
 
     ActivityHomePenjualBinding binding;
+    ListBarangAdapter adapter;
     Users userslog;
     int idlog;
     ArrayList<Barang> listBarang = new ArrayList<>();
@@ -47,6 +49,7 @@ public class HomePenjualActivity extends AppCompatActivity {
         System.out.println(idlog);
         if(idlog!=-1){
             getUserByID(idlog);
+            getSemuaBarangUser(idlog);
         }
         binding.btnAddBarang.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,9 +152,15 @@ public class HomePenjualActivity extends AppCompatActivity {
                                     );
                                     listBarang.add(barang);
                                 }
+                                binding.rvListBarangPenjual.setHasFixedSize(true);
+                                binding.rvListBarangPenjual.setLayoutManager(new LinearLayoutManager(HomePenjualActivity.this));
+                                adapter=new ListBarangAdapter(listBarang);
+                                binding.rvListBarangPenjual.setAdapter(adapter);
+
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
+
                         }
                     }
                 },
@@ -166,7 +175,7 @@ public class HomePenjualActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map <String,String>params=new HashMap();
-                params.put("function","getUserByID");
+                params.put("function","getbaranguser");
                 params.put("ID_Users",String.valueOf(idlog));
                 return params;
             }

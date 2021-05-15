@@ -18,6 +18,8 @@ public class HomeTransFragment extends Fragment {
 
     }
 
+
+
     public static HomeTransFragment newInstance() {
         HomeTransFragment fragment = new HomeTransFragment();
         Bundle args = new Bundle();

@@ -17,9 +17,9 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/itemGambar"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +36,7 @@
             android:textColor="#000000"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/itemGambar"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -48,8 +48,21 @@
             android:text="TextView"
             android:textColor="#000000"
             android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/itemGambar"
             app:layout_constraintTop_toBottomOf="@+id/txtNamaBarang" />
+
+        <TextView
+            android:id="@+id/txtSatuanBarang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="36dp"
+            android:text="TextView"
+            android:textColor="#000000"
+            android:textSize="12sp"
+            card_view:layout_constraintStart_toEndOf="@+id/txtHargaBarang"
+            card_view:layout_constraintTop_toBottomOf="@+id/txtNamaBarang" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
