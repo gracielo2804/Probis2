@@ -37,6 +37,7 @@ public class TambahBarangActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         if(getIntent().hasExtra("ID"))idUserLog=getIntent().getIntExtra("ID",-1);
         binding.btnTambahBarang.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 boolean status=true;

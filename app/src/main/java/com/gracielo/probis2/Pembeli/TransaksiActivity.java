@@ -20,6 +20,7 @@ public class TransaksiActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding= ActivityTransaksiBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        getSupportActionBar().hide();
         binding.bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
