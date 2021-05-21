@@ -48,12 +48,22 @@
                     android:id="@+id/txtNomorPenjual"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="4dp"
                     android:text="08123123123"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textColor="?android:attr/textColorSecondary"
                     android:textSize="10sp"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageView"
                     app:layout_constraintTop_toBottomOf="@+id/txtNamaPenjual" />
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="21dp"
+                    android:layout_height="22dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtNamaPenjual"
+                    app:srcCompat="@drawable/phone" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

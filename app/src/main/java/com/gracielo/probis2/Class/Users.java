@@ -23,6 +23,20 @@ public class Users implements Parcelable {
         this.role= role;
     }
 
+    @Override
+    public String toString() {
+        return "Users{" +
+                "id=" + id +
+                ", nama='" + nama + '\'' +
+                ", alamat='" + alamat + '\'' +
+                ", jk='" + jk + '\'' +
+                ", nomor='" + nomor + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                '}';
+    }
+
     public int getRole() {
         return role;
     }

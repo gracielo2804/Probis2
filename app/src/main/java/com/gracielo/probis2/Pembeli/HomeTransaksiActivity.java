@@ -1,17 +1,15 @@
 package com.gracielo.probis2.Pembeli;
 
-import android.os.Bundle;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -22,9 +20,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.gracielo.probis2.Class.Users;
 import com.gracielo.probis2.R;
-import com.gracielo.probis2.databinding.FragmentHomeTransBinding;
+import com.gracielo.probis2.databinding.ActivityHomeTransaksiBinding;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,45 +33,23 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class HomeTransFragment extends Fragment {
+public class HomeTransaksiActivity extends AppCompatActivity {
 
-    FragmentHomeTransBinding binding;
-    ArrayList<Users>listUser=new ArrayList<>();
+    Fragment fragment;
+    ActivityHomeTransaksiBinding binding;
+
+    ArrayList<Users> listUser=new ArrayList<>();
     AdapterListPenjual adapter;
-
-    public HomeTransFragment() {
-
-    }
-
-
-
-    public static HomeTransFragment newInstance() {
-        HomeTransFragment fragment = new HomeTransFragment();
-        Bundle args = new Bundle();
-
-        fragment.setArguments(args);
-        return fragment;
-    }
-
+    int iduserlog;
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
+        binding= ActivityHomeTransaksiBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        }
-    }
+        if(getIntent().hasExtra("ID"))iduserlog=getIntent().getIntExtra("ID",-1);
+        getSupportActionBar().hide();
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        binding=FragmentHomeTransBinding.inflate(inflater,container,false);
-        View view=binding.getRoot();
-        return view;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
         binding.searchBarangHome.onActionViewExpanded();
 
         ImageButton btnIkan=binding.btnKategoriIkan;
@@ -85,56 +62,79 @@ public class HomeTransFragment extends Fragment {
         btnIkan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "Ikan", Toast.LENGTH_SHORT).show();
+                Toast.makeText(HomeTransaksiActivity.this, "Ikan", Toast.LENGTH_SHORT).show();
             }
         });
         btnSayur.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "Sayur", Toast.LENGTH_SHORT).show();
+                Toast.makeText(HomeTransaksiActivity.this, "Sayur", Toast.LENGTH_SHORT).show();
             }
         });
         btnBeras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "Beras", Toast.LENGTH_SHORT).show();
+                Toast.makeText(HomeTransaksiActivity.this, "Beras", Toast.LENGTH_SHORT).show();
             }
         });
         btnAyam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "Ayam", Toast.LENGTH_SHORT).show();
+                Toast.makeText(HomeTransaksiActivity.this, "Ayam", Toast.LENGTH_SHORT).show();
             }
         });
         btnBuah.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "Buah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(HomeTransaksiActivity.this, "Buah", Toast.LENGTH_SHORT).show();
             }
         });
         btnDaging.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "Daging", Toast.LENGTH_SHORT).show();
+                Toast.makeText(HomeTransaksiActivity.this, "Daging", Toast.LENGTH_SHORT).show();
             }
         });
 
-        LinearLayoutManager horizontalLayoutManagaer = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager horizontalLayoutManagaer = new LinearLayoutManager(HomeTransaksiActivity.this, LinearLayoutManager.HORIZONTAL, false);
         binding.rvListPenjual.setLayoutManager(horizontalLayoutManagaer);
         binding.rvListPenjual.setHasFixedSize(false);
-//        adapter.setListener(new AdapterListPenjual.ItemClickListener() {
+//        adapter=new AdapterListPenjual(listUser);
+//        adapter.setOnItemClickCallback(new AdapterListPenjual.OnItemClickCallback() {
 //            @Override
-//            public void onItemClick(Users user) {
-//
+//            public void onItemClicked(Users user) {
+//                System.out.println("asd");
 //            }
 //        });
-        getAllPenjual();
-    }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        binding=null;
+        getAllPenjual();
+
+//        notifyAdapter();
+
+
+        binding.bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId())
+                {
+                    case(R.id.item_cart):
+//                        fragment=new AddFragment();
+//                        fragment=AddFragment.newInstance();
+//                        getSupportFragmentManager().beginTransaction().replace(R.id.container,fragment).commit();
+                        return true;
+                    case (R.id.item_profile):
+//                        fragment=ListFragment.newInstance();
+//                        getSupportFragmentManager().beginTransaction().replace(R.id.container,fragment).commit();
+                        return true;
+                }
+                return false;
+            }
+        });
+
+//        if(savedInstanceState==null){
+//            fragment=HomeTransFragment.newInstance();
+//            getSupportFragmentManager().beginTransaction().replace(R.id.layout_container,fragment).commit();
+//        }
     }
 
     void getAllPenjual(){
@@ -165,10 +165,21 @@ public class HomeTransFragment extends Fragment {
                                                 userobj.getString("password"),
                                                 userobj.getInt("role")
                                         );
+                                        u.setId(userobj.getInt("id"));
                                         listUser.add(u);
                                     }
                                 }
+//                                adapter.notifyDataSetChanged();
                                 adapter=new AdapterListPenjual(listUser);
+                                adapter.setOnItemClickCallback(new AdapterListPenjual.OnItemClickCallback() {
+                                    @Override
+                                    public void onItemClicked(Users user) {
+                                       Intent intent = new Intent(HomeTransaksiActivity.this,ActivityListBarangPenjual.class);
+                                       intent.putExtra("iduserlog",iduserlog);
+                                       intent.putExtra("penjual",user);
+                                       startActivity(intent);
+                                    }
+                                });
                                 binding.rvListPenjual.setAdapter(adapter);
                             }
 //                            Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
@@ -192,7 +203,13 @@ public class HomeTransFragment extends Fragment {
                 return params;
             }
         };
-        RequestQueue requestQueue= Volley.newRequestQueue(getActivity());
+        RequestQueue requestQueue= Volley.newRequestQueue(HomeTransaksiActivity.this);
         requestQueue.add(stringRequest);
     }
+
+//    void notifyAdapter(){
+//        adapter.notifyDataSetChanged();
+//        binding.rvListPenjual.setAdapter(adapter);
+//
+//    }
 }

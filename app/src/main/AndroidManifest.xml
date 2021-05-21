@@ -12,11 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Probis2">
-        <activity android:name=".Penjual.TambahBarangActivity">
-
-        </activity>
+        <activity android:name=".Pembeli.ActivityListBarangPenjual"></activity>
+        <activity android:name=".Penjual.TambahBarangActivity"></activity>
         <activity android:name=".Penjual.HomePenjualActivity" />
-        <activity android:name=".Pembeli.TransaksiActivity" >
+        <activity android:name=".Pembeli.HomeTransaksiActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,9 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".LoginActivity">
-
-        </activity>
+        <activity android:name=".LoginActivity"></activity>
     </application>
 
 </manifest>

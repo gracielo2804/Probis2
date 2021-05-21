@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Toast;
 
@@ -14,7 +16,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.gracielo.probis2.Pembeli.TransaksiActivity;
+import com.gracielo.probis2.Pembeli.HomeTransaksiActivity;
 import com.gracielo.probis2.Penjual.HomePenjualActivity;
 import com.gracielo.probis2.databinding.ActivityLoginBinding;
 import org.json.JSONException;
@@ -32,18 +34,55 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding=ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        binding.etEmailLog.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(count>0){
+                    binding.txtFieldEmailLog.setErrorEnabled(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        binding.etPassLog.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(count>0){
+                    binding.txtFieldPassLog.setErrorEnabled(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         binding.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 boolean status=true;
                 if (binding.etEmailLog.getText().toString().trim().equalsIgnoreCase("")) {
-                    binding.etEmailLog.setError("Field ini Harus diisi");
-                    binding.etEmailLog.requestFocus();
+                    binding.txtFieldEmailLog.setErrorEnabled(true);
+                    binding.txtFieldEmailLog.setError("Field ini Harus diisi");
                     status=false;
                 }
                 if (binding.etPassLog.getText().toString().isEmpty()) {
-                    binding.etPassLog.setError("Field ini Harus diisi");
-                    binding.etPassLog.requestFocus();
+                    binding.txtFieldPassLog.setErrorEnabled(true);
+                    binding.txtFieldPassLog.setError("Field ini Harus diisi");
                     status=false;
                 }
                 if(status)LoginProcess();
@@ -78,7 +117,7 @@ public class LoginActivity extends AppCompatActivity {
                             System.out.println(id);
                             if(code==11){
                                 Toast.makeText(LoginActivity.this, "Berhasil Login", Toast.LENGTH_SHORT).show();
-                                Intent i = new Intent(LoginActivity.this, TransaksiActivity.class);
+                                Intent i = new Intent(LoginActivity.this, HomeTransaksiActivity.class);
                                 i.putExtra("ID",id);
                                 startActivity(i);
 

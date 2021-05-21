@@ -17,6 +17,11 @@ import java.util.ArrayList;
 public class AdapterListPenjual extends RecyclerView.Adapter<AdapterListPenjual.ViewHolder> {
 
     ArrayList<Users>listUser=new ArrayList<>();
+    private OnItemClickCallback onItemClickCallback;
+    public void setOnItemClickCallback(OnItemClickCallback onItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback;
+    }
+
 
     public AdapterListPenjual(ArrayList<Users> listUser) {
         this.listUser = listUser;
@@ -33,6 +38,12 @@ public class AdapterListPenjual extends RecyclerView.Adapter<AdapterListPenjual.
         Users user = listUser.get(position);
         holder.binding.txtNamaPenjual.setText(user.getNama());
         holder.binding.txtNomorPenjual.setText(user.getNomor());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClickCallback.onItemClicked(user);
+            }
+        });
     }
 
     @Override
@@ -46,5 +57,8 @@ public class AdapterListPenjual extends RecyclerView.Adapter<AdapterListPenjual.
             super(binding.getRoot());
             this.binding=binding;
         }
+    }
+    public interface OnItemClickCallback {
+        void onItemClicked(Users user);
     }
 }
