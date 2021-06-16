@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Pembeli.ActivityCheckout">
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itemIconSize="@dimen/bottom_navigation_icon_size"
+        app:labelVisibilityMode="selected"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav" />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rvBarangCheckout" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvBarangCheckout"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+    <TextView
+        android:id="@+id/txtHargaGrand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="36dp"
+        android:text="100.000"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rvBarangCheckout" />
+
+    <TextView
+        android:id="@+id/txtHargaGrand2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
+        android:text="Rp."
+        android:textColor="#000000"
+        app:layout_constraintEnd_toStartOf="@+id/txtHargaGrand"
+        app:layout_constraintTop_toBottomOf="@+id/rvBarangCheckout" />
+
+    <TextView
+        android:id="@+id/txtHargaGrand3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Grand Total : "
+        android:textColor="#000000"
+        app:layout_constraintEnd_toStartOf="@+id/txtHargaGrand2"
+        app:layout_constraintTop_toBottomOf="@+id/rvBarangCheckout" />
+
+    <Spinner
+        android:id="@+id/spMetode"
+
+        android:layout_width="166dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="184dp"
+        android:entries="@array/metode"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.775"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtHargaGrand3" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="220dp"
+        android:layout_marginEnd="24dp"
+        android:text="Metode Pembayaran"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toStartOf="@+id/spMetode"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rvBarangCheckout" />
+
+    <Button
+        android:id="@+id/btnCheckoutcheck"
+        android:layout_width="338dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="8dp"
+        android:text="Checkout"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spMetode" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -100,50 +100,50 @@ public class LoginActivity extends AppCompatActivity {
 
     public void LoginProcess(){
         StringRequest stringRequest=new StringRequest(
-                Request.Method.POST,//tipe method pada web service
-                getResources().getString(R.string.url),//url yang diakses
-                //untuk handle respon
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        System.out.println(response);
-                        try {
-                            JSONObject jsonObject=new JSONObject(response);
-                            int code=jsonObject.getInt("code");
-                            String message=jsonObject.getString("message");
-                            System.out.println(message);
-                            JSONObject userObj = jsonObject.getJSONObject("datauser");
-                            int id= userObj.getInt("id");
-                            System.out.println(id);
-                            if(code==11){
-                                Toast.makeText(LoginActivity.this, "Berhasil Login", Toast.LENGTH_SHORT).show();
-                                Intent i = new Intent(LoginActivity.this, HomeTransaksiActivity.class);
-                                i.putExtra("ID",id);
-                                startActivity(i);
+            Request.Method.POST,//tipe method pada web service
+            getResources().getString(R.string.url),//url yang diakses
+            //untuk handle respon
+            new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    System.out.println(response);
+                    try {
+                        JSONObject jsonObject=new JSONObject(response);
+                        int code=jsonObject.getInt("code");
+                        String message=jsonObject.getString("message");
+                        System.out.println(message);
+                        JSONObject userObj = jsonObject.getJSONObject("datauser");
+                        int id= userObj.getInt("id");
+                        System.out.println(id);
+                        if(code==11){
+                            Toast.makeText(LoginActivity.this, "Berhasil Login", Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(LoginActivity.this, HomeTransaksiActivity.class);
+                            i.putExtra("ID",id);
+                            startActivity(i);
 
-                            }
-                            if(code==12){
-                                Toast.makeText(LoginActivity.this, "Berhasil Login Penjual", Toast.LENGTH_SHORT).show();
-                                Intent i = new Intent(LoginActivity.this, HomePenjualActivity.class);
-                                i.putExtra("ID",id);
-                                startActivity(i);
-                            }
-                            else{
-                                Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
-                    }
-                },
-                //untuk handle error
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
+                        if(code==12){
+                            Toast.makeText(LoginActivity.this, "Berhasil Login Penjual", Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(LoginActivity.this, HomePenjualActivity.class);
+                            i.putExtra("ID",id);
+                            startActivity(i);
+                        }
+                        else{
+                            Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
+                        }
 
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
                 }
+            },
+            //untuk handle error
+            new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            }
         ){
             //untuk mengatur parameter yang idkirim ke web sevice
 

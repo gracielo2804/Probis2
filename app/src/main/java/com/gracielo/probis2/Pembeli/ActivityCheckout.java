@@ -1,13 +1,13 @@
 package com.gracielo.probis2.Pembeli;
 
-import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -16,60 +16,63 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.gracielo.probis2.Class.Barang;
-import com.gracielo.probis2.Class.Users;
-import com.gracielo.probis2.Penjual.HomePenjualActivity;
-import com.gracielo.probis2.Penjual.ListBarangAdapter;
 import com.gracielo.probis2.R;
-import com.gracielo.probis2.databinding.ActivityListBarangPenjualBinding;
+import com.gracielo.probis2.databinding.ActivityCheckoutBinding;
 
-import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Executors;
 
-public class ActivityListBarangPenjual extends AppCompatActivity {
+public class ActivityCheckout extends AppCompatActivity {
 
-    Users penjual;
-    int iduserlog;
+    ActivityCheckoutBinding binding;
     ArrayList<Barang> listBarang = new ArrayList<>();
-    ActivityListBarangPenjualBinding binding;
-    ListBarangPembeliAdapter adapter;
-
+    ListBarangCheckoutAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding=ActivityListBarangPenjualBinding.inflate(getLayoutInflater());
+        binding=ActivityCheckoutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        if(getIntent().hasExtra("penjual"))penjual=getIntent().getParcelableExtra("penjual");
-        if(getIntent().hasExtra("iduserlog"))iduserlog=getIntent().getIntExtra("iduserlog",-1);
-        binding.txtNamaPenjualListBarang.setText(penjual.getNama());
-        binding.txtNomorPenjualListBarang.setText(penjual.getNomor());
+        getSemuaBarangPenjual(2);
+        binding.btnCheckoutcheck.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        getSemuaBarangPenjual(penjual.getId());
-        binding.bottomNav.setOnNavigationItemSelectedListener(item -> {
-            switch (item.getItemId())
-            {
-                case(R.id.item_cart):
-                        Intent i =new Intent(ActivityListBarangPenjual.this,ActivityCart.class);
-                        startActivity(i);
-                    return true;
-                case (R.id.item_profile):
-//                        fragment=ListFragment.newInstance();
-//                        getSupportFragmentManager().beginTransaction().replace(R.id.container,fragment).commit();
-                    return true;
-            }
-            return false;
+            builder.setTitle("Confirm");
+            builder.setMessage("Apakah Anda Yakin Ingin Menyelesaikan Pembayaran ?");
+
+            builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    Intent i =new Intent(ActivityCheckout.this,HomeTransaksiActivity.class);
+                    startActivity(i);
+                }
+            });
+
+            builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                    // Do nothing
+                    dialog.dismiss();
+                }
+            });
+
+            AlertDialog alert = builder.create();
+            alert.show();
         });
+
     }
-
-
-
     void getSemuaBarangPenjual(int userid){
         StringRequest stringRequest=new StringRequest(
                 Request.Method.POST,//tipe method pada web service
@@ -100,10 +103,10 @@ public class ActivityListBarangPenjual extends AppCompatActivity {
                                     );
                                     listBarang.add(barang);
                                 }
-                                binding.rvListBarangYangDijual.setHasFixedSize(true);
-                                binding.rvListBarangYangDijual.setLayoutManager(new LinearLayoutManager(ActivityListBarangPenjual.this));
-                                adapter=new ListBarangPembeliAdapter(listBarang);
-                                binding.rvListBarangYangDijual.setAdapter(adapter);
+                                binding.rvBarangCheckout.setHasFixedSize(true);
+                                binding.rvBarangCheckout.setLayoutManager(new LinearLayoutManager(ActivityCheckout.this));
+                                adapter=new ListBarangCheckoutAdapter(listBarang);
+                                binding.rvBarangCheckout.setAdapter(adapter);
 
                             }
                         } catch (JSONException e) {
@@ -124,7 +127,7 @@ public class ActivityListBarangPenjual extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map <String,String>params=new HashMap();
                 params.put("function","getbaranguser");
-                params.put("ID_Users",String.valueOf(penjual.getId()));
+                params.put("ID_Users",String.valueOf(2));
                 return params;
             }
         };

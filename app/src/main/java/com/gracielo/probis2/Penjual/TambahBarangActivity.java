@@ -93,49 +93,41 @@ public class TambahBarangActivity extends AppCompatActivity {
     }
     void insertBarang(Barang barang,int UserID){
         StringRequest stringRequest=new StringRequest(
-                Request.Method.POST,//tipe method pada web service
-                getResources().getString(R.string.url),//url yang diakses
-                //untuk handle respon
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.e ( "response", "" + response );
-                        System.out.println(response);
-                        try {
-                            JSONObject jsonObject=new JSONObject(response);
-                            int code=jsonObject.getInt("code");
-                            String message=jsonObject.getString("message");
-                            if(code==1){
-                                Toast.makeText(TambahBarangActivity.this, "Berhasil Tambah Barang !", Toast.LENGTH_SHORT).show();
-                                setResult(HomePenjualActivity.RESULT_CODE);
-                                finish();
-
-                            }
-//                            Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+            Request.Method.POST,//tipe method pada web service
+            getResources().getString(R.string.url),//url yang diakses
+            //untuk handle respon
+            new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.e ( "response", "" + response );
+                    System.out.println(response);
+                    try {
+                        JSONObject jsonObject=new JSONObject(response);
+                        int code=jsonObject.getInt("code");
+                        String message=jsonObject.getString("message");
+                        if(code==1){
+                            Toast.makeText(TambahBarangActivity.this, "Berhasil Tambah Barang !", Toast.LENGTH_SHORT).show();
+                            setResult(HomePenjualActivity.RESULT_CODE); finish();
                         }
-                    }
-                },
-                //untuk handle error
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
                 }
+            },
+            new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            }
         ){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map <String,String>params=new HashMap();
-                params.put("function","addBarang");
-                params.put("nama",barang.getNama());
-                params.put("harga", barang.getHarga());
-                params.put("deskripsi",barang.getDesc());
-                params.put("satuan",barang.getSatuan());
-                params.put("linkgambar",barang.getLinkGambar());
-                params.put("id_penjual",String.valueOf(UserID));
-                params.put("id_kategori",barang.getIdKategori());
+                params.put("function","addBarang"); params.put("nama",barang.getNama());
+                params.put("harga", barang.getHarga()); params.put("deskripsi",barang.getDesc());
+                params.put("satuan",barang.getSatuan()); params.put("linkgambar",barang.getLinkGambar());
+                params.put("id_penjual",String.valueOf(UserID));params.put("id_kategori",barang.getIdKategori());
                 return params;
             }
         };

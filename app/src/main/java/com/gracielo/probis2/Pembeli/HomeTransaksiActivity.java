@@ -118,9 +118,8 @@ public class HomeTransaksiActivity extends AppCompatActivity {
                 switch (item.getItemId())
                 {
                     case(R.id.item_cart):
-//                        fragment=new AddFragment();
-//                        fragment=AddFragment.newInstance();
-//                        getSupportFragmentManager().beginTransaction().replace(R.id.container,fragment).commit();
+                        Intent i =new Intent(HomeTransaksiActivity.this,ActivityCart.class);
+                        startActivity(i);
                         return true;
                     case (R.id.item_profile):
 //                        fragment=ListFragment.newInstance();

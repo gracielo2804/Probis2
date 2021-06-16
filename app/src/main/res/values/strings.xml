@@ -18,4 +18,8 @@
         <item>Sayuran</item>
         <item>Buah</item>
     </string-array>
+    <string-array name="metode">
+        <item>Potong Saldo</item>
+        <item>Transfer Rekening</item>
+    </string-array>
 </resources>

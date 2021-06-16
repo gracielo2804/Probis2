@@ -1,13 +1,11 @@
 package com.gracielo.probis2.Pembeli;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -16,15 +14,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.gracielo.probis2.Class.Barang;
-import com.gracielo.probis2.Class.Users;
-import com.gracielo.probis2.Penjual.HomePenjualActivity;
-import com.gracielo.probis2.Penjual.ListBarangAdapter;
 import com.gracielo.probis2.R;
-import com.gracielo.probis2.databinding.ActivityListBarangPenjualBinding;
+import com.gracielo.probis2.databinding.ActivityCartBinding;
 
-import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,42 +26,24 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ActivityListBarangPenjual extends AppCompatActivity {
+public class ActivityCart extends AppCompatActivity {
 
-    Users penjual;
-    int iduserlog;
     ArrayList<Barang> listBarang = new ArrayList<>();
-    ActivityListBarangPenjualBinding binding;
+    ActivityCartBinding binding;
     ListBarangPembeliAdapter adapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding=ActivityListBarangPenjualBinding.inflate(getLayoutInflater());
+        binding=ActivityCartBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        if(getIntent().hasExtra("penjual"))penjual=getIntent().getParcelableExtra("penjual");
-        if(getIntent().hasExtra("iduserlog"))iduserlog=getIntent().getIntExtra("iduserlog",-1);
-        binding.txtNamaPenjualListBarang.setText(penjual.getNama());
-        binding.txtNomorPenjualListBarang.setText(penjual.getNomor());
 
-        getSemuaBarangPenjual(penjual.getId());
-        binding.bottomNav.setOnNavigationItemSelectedListener(item -> {
-            switch (item.getItemId())
-            {
-                case(R.id.item_cart):
-                        Intent i =new Intent(ActivityListBarangPenjual.this,ActivityCart.class);
-                        startActivity(i);
-                    return true;
-                case (R.id.item_profile):
-//                        fragment=ListFragment.newInstance();
-//                        getSupportFragmentManager().beginTransaction().replace(R.id.container,fragment).commit();
-                    return true;
-            }
-            return false;
+        getSemuaBarangPenjual(2);
+        binding.btnToCheckout.setOnClickListener(v -> {
+            Intent i =new Intent(this,ActivityCheckout.class);
+            startActivity(i);
         });
+
     }
-
-
 
     void getSemuaBarangPenjual(int userid){
         StringRequest stringRequest=new StringRequest(
@@ -100,10 +75,10 @@ public class ActivityListBarangPenjual extends AppCompatActivity {
                                     );
                                     listBarang.add(barang);
                                 }
-                                binding.rvListBarangYangDijual.setHasFixedSize(true);
-                                binding.rvListBarangYangDijual.setLayoutManager(new LinearLayoutManager(ActivityListBarangPenjual.this));
+                                binding.rvBarangCart.setHasFixedSize(true);
+                                binding.rvBarangCart.setLayoutManager(new LinearLayoutManager(ActivityCart.this));
                                 adapter=new ListBarangPembeliAdapter(listBarang);
-                                binding.rvListBarangYangDijual.setAdapter(adapter);
+                                binding.rvBarangCart.setAdapter(adapter);
 
                             }
                         } catch (JSONException e) {
@@ -124,7 +99,7 @@ public class ActivityListBarangPenjual extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map <String,String>params=new HashMap();
                 params.put("function","getbaranguser");
-                params.put("ID_Users",String.valueOf(penjual.getId()));
+                params.put("ID_Users",String.valueOf(2));
                 return params;
             }
         };
